@@ -8,6 +8,10 @@ LoadScenarioDialog::LoadScenarioDialog(QWidget *parent)
 {
     this->ui->setupUi(this);
 
+    for (auto &item : this->ui->btn_dialog->buttons()){
+      item->setIcon(QIcon());
+    }
+
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &LoadScenarioDialog::reject);
 
     // Copy values from interface than trigger accept

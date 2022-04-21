@@ -9,6 +9,10 @@ LoadDatasetDialog::LoadDatasetDialog(QWidget *parent)
     // Load .ui file
     this->ui->setupUi(this);
 
+    for (auto &item : this->ui->btn_dialog->buttons()){
+      item->setIcon(QIcon());
+    }
+
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &LoadDatasetDialog::reject);
 
     // Copy values from interface than trigger accept

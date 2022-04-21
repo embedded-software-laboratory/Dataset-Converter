@@ -9,6 +9,10 @@ SaveScenarioDialog::SaveScenarioDialog(QWidget *parent)
 {
     this->ui->setupUi(this);
 
+    for (auto &item : this->ui->btn_dialog->buttons()){
+      item->setIcon(QIcon());
+    }
+
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &SaveScenarioDialog::reject);
 
     connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this,
