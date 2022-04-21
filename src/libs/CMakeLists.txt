@@ -1,0 +1,3 @@
+add_subdirectory(cpm_lanelet2)
+add_subdirectory(cpm_scenario)
+add_subdirectory(thirdparty)

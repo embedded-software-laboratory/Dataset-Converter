@@ -1,0 +1,35 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/resources">
+        <file>lab_background.png</file>
+        <file>style.qss</file>
+        <file>logo.png</file>
+        <file>no-scenario-loaded.png</file>
+        <file>icons/mouse-pointer.svg</file>
+        <file>icons/map.svg</file>
+        <file>icons/globe.svg</file>
+        <file>icons/square.svg</file>
+        <file>icons/check-square.svg</file>
+        <file>icons/circle.svg</file>
+        <file>icons/check-circle.svg</file>
+        <file>icons/chevron-up.svg</file>
+        <file>icons/chevron-up-disabled.svg</file>
+        <file>icons/chevron-up-pressed.svg</file>
+        <file>icons/chevron-down.svg</file>
+        <file>icons/chevron-down-disabled.svg</file>
+        <file>icons/chevron-down-pressed.svg</file>
+        <file>icons/node.svg</file>
+        <file>icons/path.svg</file>
+        <file>icons/lanelet.svg</file>
+        <file>icons/folder.svg</file>
+        <file>icons/spline.svg</file>
+        <file>icons/image.svg</file>
+        <file>icons/navigation.svg</file>
+        <file>icons/trash.svg</file>
+        <file>icons/flip.svg</file>
+        <file>icons/database.svg</file>
+        <file>icons/play.svg</file>
+        <file>icons/pause.svg</file>
+        <file>icons/skip-forward.svg</file>
+        <file>icons/skip-back.svg</file>
+    </qresource>
+</RCC>
