@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Dataset Converter
+Comment=Convert datasets into scenarios for the CPM Lab
+Exec=dataset-converter
+Icon=logo.png
+Terminal=false
+Type=Application
+NoDisplay=true
+StartupNotify=true
+Categories=Tool;Converter;CPM;
+Keywords=Tool;Converter;CPM;

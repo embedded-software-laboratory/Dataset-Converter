@@ -1,3 +1,5 @@
+### Custom ###
+*build*
 
 # Created by https://www.toptal.com/developers/gitignore/api/clion,c++,cmake,macos,windows,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=clion,c++,cmake,macos,windows,linux
@@ -185,7 +187,8 @@ CMakeUserPresets.json
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*

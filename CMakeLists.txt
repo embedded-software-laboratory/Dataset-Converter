@@ -1,7 +1,7 @@
 # At LEAST 2.8 but newer is better
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(CpmDatasetConverter VERSION 0.1 LANGUAGES CXX)
-message("Converter Version: ${PROJECT_VERSION}")
+message(STATUS "Converter Version: ${PROJECT_VERSION}")
 
 # Must use GNUInstallDirs to install libraries into correct
 # locations on all platforms.

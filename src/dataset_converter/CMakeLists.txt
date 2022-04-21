@@ -1,3 +1,6 @@
+# Define library. Only source files here!
+project(dataset_converter VERSION 0.1 LANGUAGES CXX)
+
 # Enable Qt5 cmake
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -12,7 +15,7 @@ if (APPLE)
 endif ()
 
 # Define an executable
-add_executable(cpm_dataset_converter ${PLATFORM_SOURCE} ${FRAMEWORK_RES}
+add_executable(dataset_converter ${PLATFORM_SOURCE} ${FRAMEWORK_RES}
         resources/resources.qrc
         src/main.cpp
         src/MainWindow.cpp
@@ -31,20 +34,20 @@ add_executable(cpm_dataset_converter ${PLATFORM_SOURCE} ${FRAMEWORK_RES}
         src/visualisation/graphics_items/WayItem.cpp
         src/visualisation/graphics_items/ExtendedObjectItem.cpp)
 
-target_include_directories(cpm_dataset_converter PUBLIC
+target_include_directories(dataset_converter PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         PRIVATE src)
 
 # Define the libraries this project depends upon
-target_link_libraries(cpm_dataset_converter
+target_link_libraries(dataset_converter
         Qt5::Widgets
         Qt5::Core
         Qt5::Svg
         lanelet2_core
         lanelet2_projection
         lanelet2_io
-        dataset_converter)
+        dataset_converter_common)
 
 if (APPLE)
     set(CMAKE_EXE_LINKER_FLAGS "-framework ServiceManagement -framework Foundation -framework Cocoa")
@@ -68,10 +71,10 @@ elseif (UNIX)
     set(CMAKE_EXE_LINKER_FLAGS -no-pie)
 
     # Setting application meta information
-    set(PROJECT_PATH "${CMAKE_BINARY_DIR}/cpm_dataset_converter")
-    set(PROJECT_ICON "${CMAKE_BINARY_DIR}/${PROJECT_NAME_LOWER}-logo.png")
+    set(PROJECT_PATH "${CMAKE_BINARY_DIR}/dataset_converter")
+    set(PROJECT_ICON "${CMAKE_BINARY_DIR}/logo.png")
 
     # Copy launcher files
-    file(COPY ${CMAKE_SOURCE_DIR}/frameworks/${PROJECT_NAME_LOWER}-logo.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
-    configure_file(${CMAKE_SOURCE_DIR}/frameworks/${PROJECT_NAME_LOWER}.desktop.in ${PROJECT_NAME_LOWER}-launcher.desktop)
+    file(COPY ${CMAKE_SOURCE_DIR}/frameworks/logo.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+    configure_file(${CMAKE_SOURCE_DIR}/frameworks/dataset-converter.desktop.in ${CMAKE_BINARY_DIR}/dataset-converter.desktop)
 endif ()

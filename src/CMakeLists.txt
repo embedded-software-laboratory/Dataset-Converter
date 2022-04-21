@@ -1,3 +1,3 @@
-add_subdirectory(dataset_converter_lib)
-add_subdirectory(dataset_converter)
 add_subdirectory(libs)
+add_subdirectory(dataset_converter_common)
+add_subdirectory(dataset_converter)
