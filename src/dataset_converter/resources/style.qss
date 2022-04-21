@@ -55,7 +55,11 @@ QMenu::item:disabled {
 
 QMenu::item:selected {
     border: none;
-    color: palette(highlight);
+    background: palette(highlight);
+}
+
+QMenu::item:checked {
+    background-color: palette(highlight);
 }
 
 QMenu::indicator {

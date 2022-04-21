@@ -123,6 +123,9 @@ int main(int argc, char *argv[])
     qInfo("[CpmSC] Loading style.");
     load_style();
 
+    qInfo("[CpmSC] Overwrite locale configuration of user.");
+    std::setlocale(LC_ALL, "C");
+
     qInfo("[CpmSC] Executing Gui.");
     auto *mainWindow = new MainWindow;
     mainWindow->setWindowTitle(QApplication::applicationName());
