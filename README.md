@@ -43,3 +43,10 @@ cd build
 cmake .. --CMAKE_INSTALL_PREFIX="<install-dir>"
 cmake --build . --target install
 ```
+
+## Acknowledgements
+We acknowledge the financial support for this project by the Exploratory Teaching Space of the RWTH Aachen University (Germany).
+
+## References
+* [1] A. Mokhtarian, S. Schäfer, B. Alrifaee. "CPM Olympics: Development of Scenarios for Benchmarking in
+Networked and Autonomous Driving". 2022
