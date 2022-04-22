@@ -50,7 +50,7 @@ void LaneletVisualisation::removeNode(NodeItem *node)
 {
     this->m_scene->removeItem(node);
     this->m_nodes.removeOne(node);
-    for (auto parent: node->ways()) {
+    for (auto parent : node->ways()) {
         parent->removeNode(node);
         emit nodeRemovedFromWay(parent, node);
         qDebug() << "[LaneletVisualisation] Node removed from way!";
@@ -62,7 +62,7 @@ void LaneletVisualisation::removeWay(WayItem *way)
 {
     this->m_scene->removeItem(way);
     this->m_ways.removeOne(way);
-    for (auto child: way->nodes()) {
+    for (auto child : way->nodes()) {
         child->removeParent(way);
         qDebug() << "[LaneletVisualisation] Way removed from node!";
     }
@@ -85,10 +85,10 @@ void LaneletVisualisation::removeLanelet(LaneletItem *lanelet)
 
 void LaneletVisualisation::clearVisualisation()
 {
-    for (auto node: this->m_nodes) {
+    for (auto node : this->m_nodes) {
         this->m_scene->removeItem(node);
     }
-    for (auto way: this->m_ways) {
+    for (auto way : this->m_ways) {
         this->m_scene->removeItem(way);
     }
     qDebug() << "[LaneletVisualisation] Visualization cleared!";
@@ -99,14 +99,14 @@ void LaneletVisualisation::splineSelection(qreal splineFactor)
 
     // Get nodes under cursor
     WayItem *selectedWay = nullptr;
-    for (auto item: itemsSelected) {
+    for (auto item : itemsSelected) {
         auto *wayItem = dynamic_cast<WayItem *>(item);
         if (!wayItem) continue;
         selectedWay = wayItem;
         break;
     }
     QList<NodeItem *> nodeItemsUnderCursor;
-    for (auto item: itemsSelected) {
+    for (auto item : itemsSelected) {
         auto *nodeItem = dynamic_cast<NodeItem *>(item);
         if (!nodeItem) continue;
         nodeItemsUnderCursor.push_back(nodeItem);

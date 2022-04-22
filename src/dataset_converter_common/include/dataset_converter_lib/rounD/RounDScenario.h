@@ -9,7 +9,7 @@
 #include <map>
 #include "dataset_converter_lib/DatasetScenario.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 class RounDScenario : public DatasetScenario {
  private:
@@ -27,17 +27,16 @@ class RounDScenario : public DatasetScenario {
                 std::string tracks_meta_file_path_,
                 std::string background_file_path_);
 
-  void MakePathsAbsolute(const std::string& dataset_root_directory);
+  void MakePathsAbsolute(const std::string &dataset_root_directory);
 
   void ParserRecordingMetaFile();
   void ParserTrackMetaFile();
   void ParserTrackFile();
 
-
  public:
-  explicit RounDScenario(const std::string& name);
+  explicit RounDScenario(const std::string &name);
 
-  void Parse(const std::string& dataset_root_directory) override;
+  void Parse(const std::string &dataset_root_directory) override;
 };
 
 }

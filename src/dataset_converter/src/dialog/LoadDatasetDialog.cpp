@@ -9,21 +9,24 @@ LoadDatasetDialog::LoadDatasetDialog(QWidget *parent)
     // Load .ui file
     this->ui->setupUi(this);
 
-    for (auto &item : this->ui->btn_dialog->buttons()){
-      item->setIcon(QIcon());
+    // Remove icons from the buttons
+    for (auto &item : this->ui->btn_dialog->buttons()) {
+        item->setIcon(QIcon());
     }
 
+    // Setup dialog button bar function
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &LoadDatasetDialog::reject);
+    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadDatasetDialog::accept);
 
     // Copy values from interface than trigger accept
     connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadDatasetDialog::onAcceptButtonPressed);
-    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadDatasetDialog::accept);
 
-    // Open the systems file browser
+    // Open the systems file browser then button is pressed
     connect(this->ui->btn_browse, &QToolButton::pressed, this, &LoadDatasetDialog::onBrowseButtonPressed);
 }
 void LoadDatasetDialog::onBrowseButtonPressed()
 {
+    // Assume home directory is fine
     QDir suggestedDir = QDir::homePath();
 
     // If directory is valid and exists use this value as the suggested directory
@@ -46,13 +49,16 @@ void LoadDatasetDialog::onBrowseButtonPressed()
 
 void LoadDatasetDialog::onAcceptButtonPressed()
 {
+    // Copy data from the ui to the data model
     this->m_dataset_name = this->ui->combo_dataset->currentText();
     this->m_dataset_root_directory.setPath(this->ui->edit_browse->text());
 }
+
 const QDir &LoadDatasetDialog::datasetRootDirectory() const
 {
     return m_dataset_root_directory;
 }
+
 const QString &LoadDatasetDialog::datasetName() const
 {
     return m_dataset_name;

@@ -1,7 +1,7 @@
 #include "dataset_converter_lib/inD/InDParser.h"
 #include "dataset_converter_lib/inD/InDScenario.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 InDParser::InDParser() {
   this->scenarios_.push_back(std::make_shared<InDScenario>("00"));

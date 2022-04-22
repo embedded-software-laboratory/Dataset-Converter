@@ -7,21 +7,28 @@
 SaveScenarioDialog::SaveScenarioDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::SaveScenarioDialog)
 {
+    // Load .ui file
     this->ui->setupUi(this);
 
-    for (auto &item : this->ui->btn_dialog->buttons()){
-      item->setIcon(QIcon());
+    // Remove icons from the buttons
+    for (auto &item : this->ui->btn_dialog->buttons()) {
+        item->setIcon(QIcon());
     }
 
+    // Setup dialog button bar function
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &SaveScenarioDialog::reject);
+    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &SaveScenarioDialog::accept);
+
+    // Copy values from interface than trigger accept
 
     connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this,
             &SaveScenarioDialog::onAcceptButtonPressed);
-    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &SaveScenarioDialog::accept);
 
+    // Open the systems file browser
     connect(this->ui->btn_browse, &QToolButton::pressed, this,
             &SaveScenarioDialog::onBrowseButtonPressed);
 
+    // Update limit values if frames are changed
     connect(this->ui->spinner_from_frame, QOverload<int>::of(&QSpinBox::valueChanged), this->ui->spinner_to_frame,
             &QSpinBox::setMinimum);
     connect(this->ui->spinner_to_frame, QOverload<int>::of(&QSpinBox::valueChanged), this->ui->spinner_from_frame,
@@ -30,7 +37,7 @@ SaveScenarioDialog::SaveScenarioDialog(QWidget *parent)
 
 void SaveScenarioDialog::onBrowseButtonPressed()
 {
-
+    // Assume home directory is fine
     QDir suggestedDir = QDir::homePath();
 
     // If directory is valid and exists use this value as the suggested directory
@@ -53,17 +60,20 @@ void SaveScenarioDialog::onBrowseButtonPressed()
 
 void SaveScenarioDialog::onAcceptButtonPressed()
 {
+    // Copy data from the ui to the data model
     this->m_fromFrame = this->ui->spinner_from_frame->value();
     this->m_toFrame = this->ui->spinner_to_frame->value();
     this->m_scenarioRootPath.setPath(this->ui->edit_browse->text());
     this->m_scenarioName = this->ui->edit_name->text();
     this->m_export_full_trajectories = this->ui->radio_full_trajectory->isChecked();
 }
+
 void SaveScenarioDialog::suggestInput(const QString &name, const QDir &targetDirectory)
 {
     this->ui->edit_name->setText(name);
     this->ui->edit_browse->setText(targetDirectory.absolutePath());
 }
+
 void SaveScenarioDialog::setFrameLimits(long fromFrame, long toFrame)
 {
     this->ui->spinner_from_frame->setMinimum(static_cast<int>(fromFrame));
@@ -71,22 +81,27 @@ void SaveScenarioDialog::setFrameLimits(long fromFrame, long toFrame)
     this->ui->spinner_to_frame->setMaximum(static_cast<int>(toFrame));
     this->ui->spinner_to_frame->setValue(static_cast<int>(toFrame));
 }
+
 const QString &SaveScenarioDialog::scenarioName() const
 {
     return m_scenarioName;
 }
+
 const QDir &SaveScenarioDialog::scenarioRootPath() const
 {
     return m_scenarioRootPath;
 }
+
 size_t SaveScenarioDialog::fromFrame() const
 {
     return m_fromFrame;
 }
+
 size_t SaveScenarioDialog::toFrame() const
 {
     return m_toFrame;
 }
+
 bool SaveScenarioDialog::exportFullTrajectories() const
 {
     return m_export_full_trajectories;

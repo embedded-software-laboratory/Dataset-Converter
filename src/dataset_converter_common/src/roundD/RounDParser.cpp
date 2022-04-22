@@ -1,7 +1,7 @@
 #include "dataset_converter_lib/rounD/RounDParser.h"
 #include "dataset_converter_lib/rounD/RounDScenario.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 RounDParser::RounDParser() {
   this->scenarios_.push_back(std::make_shared<RounDScenario>("00"));

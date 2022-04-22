@@ -22,6 +22,8 @@ add_executable(dataset_converter ${PLATFORM_SOURCE} ${FRAMEWORK_RES}
         src/worker/DatasetParser.cpp
         src/worker/LaneletHandler.cpp
         src/worker/ScenarioHandler.cpp
+        src/dialog/AboutDialog.cpp
+        src/dialog/ErrorDialog.cpp
         src/dialog/LoadDatasetDialog.cpp
         src/dialog/SaveScenarioDialog.cpp
         src/dialog/LoadScenarioDialog.cpp

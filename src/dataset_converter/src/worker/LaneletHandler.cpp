@@ -35,7 +35,7 @@ void LaneletHandler::parseLanelet(QString laneletFileName, qreal scaleFactor)
 
     // Parse nodes and push to visualisation
     long id = 0;
-    for (const auto &node: this->m_map->pointLayer) {
+    for (const auto &node : this->m_map->pointLayer) {
         auto item = new NodeItem();
         item->setPos({node.x() * scaleFactor * 18, (4 - node.y()) * scaleFactor * 18});
         item->setPos(item->pos());
@@ -47,7 +47,7 @@ void LaneletHandler::parseLanelet(QString laneletFileName, qreal scaleFactor)
     emit progress(3, 5);
 
     // Parse ways
-    for (const auto &way: this->m_map->lineStringLayer) {
+    for (const auto &way : this->m_map->lineStringLayer) {
         auto item = new WayItem();
         QString internalType = "unknown";
         if (way.hasAttribute("type")) {
@@ -72,7 +72,7 @@ void LaneletHandler::parseLanelet(QString laneletFileName, qreal scaleFactor)
         wayIdMap[way.id()] = item;
         emit wayAdded(item);
 
-        for (const auto &node: way) {
+        for (const auto &node : way) {
             item->addNode(nodeIdMap[node.id()]);
         }
         id++;
@@ -80,7 +80,7 @@ void LaneletHandler::parseLanelet(QString laneletFileName, qreal scaleFactor)
     emit progress(4, 5);
 
     // Parse lanelets
-    for (const auto &lanelet: this->m_map->laneletLayer) {
+    for (const auto &lanelet : this->m_map->laneletLayer) {
         auto item = new LaneletItem();
         item->setLaneletType(lanelet.attribute("cpm_type").value().c_str());
         item->setRightWayItem(wayIdMap[lanelet.rightBound().id()]);
@@ -105,7 +105,7 @@ void LaneletHandler::writeLanelet(QString laneletFileName, qreal scaleFactor)
     this->m_map = std::make_shared<lanelet::LaneletMap>();
     emit progress(0, 3);
     long id = 1;
-    for (auto node: nodes_) {
+    for (auto node : nodes_) {
 
         auto backendNode =
             lanelet::Point3d(id,
@@ -118,7 +118,7 @@ void LaneletHandler::writeLanelet(QString laneletFileName, qreal scaleFactor)
         id++;
     }
     emit progress(1, 4);
-    for (auto way: ways_) {
+    for (auto way : ways_) {
         if (way->nodes().size() < 2) continue;
         auto backendWay = lanelet::LineString3d(id);
         QString internalWay = way->wayType();
@@ -135,7 +135,7 @@ void LaneletHandler::writeLanelet(QString laneletFileName, qreal scaleFactor)
             backendWay.setAttribute("type", "virtual");
         }
 
-        for (auto node: way->nodes()) {
+        for (auto node : way->nodes()) {
             backendWay.push_back(nodeIdMap[node]);
         }
         this->m_map->add(backendWay);
@@ -143,7 +143,7 @@ void LaneletHandler::writeLanelet(QString laneletFileName, qreal scaleFactor)
         id++;
     }
     emit progress(2, 4);
-    for (auto lanelet: lanelets_) {
+    for (auto lanelet : lanelets_) {
         if (!lanelet->leftWayItem() || !lanelet->rightWayItem()) continue;
         auto backendLanelet = lanelet::Lanelet(id);
         backendLanelet.setAttribute("cpm_type", lanelet->laneletType().toStdString());
@@ -176,7 +176,7 @@ void LaneletHandler::removeNode(NodeItem *node)
 {
     int index = -1;
     int counter = -1;
-    for (auto element: this->nodes_) {
+    for (auto element : this->nodes_) {
         counter++;
         if (element != node) continue;
         index = counter;
@@ -197,7 +197,7 @@ void LaneletHandler::addWayWithNode(NodeItem *node)
 void LaneletHandler::removeWay(WayItem *way)
 {
     if (!way->lanelets().empty()) {
-        for (auto lanelet: way->lanelets()) {
+        for (auto lanelet : way->lanelets()) {
             auto laneletWay = lanelet->leftWayItem();
             if (laneletWay) laneletWay->removeFromLanelet(lanelet);
             laneletWay = lanelet->rightWayItem();
@@ -207,7 +207,7 @@ void LaneletHandler::removeWay(WayItem *way)
     }
     int index = -1;
     int counter = -1;
-    for (auto element: this->ways_) {
+    for (auto element : this->ways_) {
         counter++;
         if (element != way) continue;
         index = counter;
@@ -229,7 +229,7 @@ void LaneletHandler::removeLanelet(LaneletItem *lanelet)
 {
     int index = -1;
     int counter = -1;
-    for (auto element: this->lanelets_) {
+    for (auto element : this->lanelets_) {
         counter++;
         if (element != lanelet) continue;
         index = counter;

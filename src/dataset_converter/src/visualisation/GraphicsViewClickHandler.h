@@ -33,7 +33,7 @@ private:
     EditorMode m_mode = EditorMode::SELECT;  ///<Mode will be dictated by the user with a dedicated toolbar
 
     // Intern access to get elements under mouse
-    QGraphicsView * const m_canvas; ///< Canvas
+    QGraphicsView *const m_canvas; ///< Canvas
 
     LaneletItem *m_selectedLanelet = nullptr; ///< Buffer for the selected lanelet item
     WayItem *m_selectedWay = nullptr; ///< Buffer for the selected way item

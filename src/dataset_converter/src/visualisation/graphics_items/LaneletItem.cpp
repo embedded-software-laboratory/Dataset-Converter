@@ -28,7 +28,7 @@ void LaneletItem::updateElement()
 
     // Transfer both ways into polygons
     QPolygonF polygon;
-    for (auto node: left_way_item_->nodes()) {
+    for (auto node : left_way_item_->nodes()) {
         polygon << node->pos();
     }
     if (rightInverted) {
@@ -38,7 +38,7 @@ void LaneletItem::updateElement()
         }
     }
     else {
-        for (auto node: right_way_item_->nodes()) {
+        for (auto node : right_way_item_->nodes()) {
             polygon << node->pos();
         }
     }

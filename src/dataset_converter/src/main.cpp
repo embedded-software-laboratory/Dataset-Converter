@@ -3,7 +3,7 @@
  * @authors Simon Schaefer
  * @date 05.05.2021
  */
-#define APPLICATION_NAME "CpmDatasetConverter"
+#define APPLICATION_NAME "Dataset Converter"
 #define ORGANIZATION_NAME "Lehrstuhl Informatik 11 - Embedded Software"
 #define MAJOR_VERSION 0
 #define MINOR_VERSION 1

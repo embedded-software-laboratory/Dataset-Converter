@@ -3,21 +3,21 @@
 #include <map>
 
 #include <CSV/csv.hpp>
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 void DutScenario::MakePathsAbsolute(const std::string &dataset_root_directory) {
   this->background_file_path_ = dataset_root_directory + this->background_file_path_;
   this->pedestrian_trajectory_file_path_ = dataset_root_directory + this->pedestrian_trajectory_file_path_;
   this->vehicle_trajectory_file_path_ = dataset_root_directory + this->vehicle_trajectory_file_path_;
   this->background_ratio_file_path_ = dataset_root_directory + this->background_ratio_file_path_;
 }
-void DutScenario::InterpolateOrientation(const cpm_scenario::ExtendedObjectPtr & object) {
+void DutScenario::InterpolateOrientation(const cpm_scenario::ExtendedObjectPtr &object) {
   const auto &states = object->GetStates();
   if (states.empty()) return;
 
   auto last_state = states.begin()->second;
   double last_orientation = 0.0;
 
-  for (const auto& element : states) {
+  for (const auto &element : states) {
     auto state = element.second;
     Eigen::Vector2d normal = state->GetPosition() - last_state->GetPosition();
 
@@ -35,7 +35,7 @@ void DutScenario::ParsePedestrianFile() {
   long max_frame = 0;
   csv::CSVReader csv_reader(this->pedestrian_trajectory_file_path_);
   std::map<long, cpm_scenario::ExtendedObjectPtr> objects;
-  for (csv::CSVRow &row: csv_reader) {
+  for (csv::CSVRow &row : csv_reader) {
     auto id = row["id"].get<long>();
     auto frame = row["frame"].get<long>();
     long timestamp = static_cast<long>((FRAMES_PER_SECOND / frame) * 1000000000.0);
@@ -43,7 +43,9 @@ void DutScenario::ParsePedestrianFile() {
     auto y = row["y_est"].get<double>();
     auto vx = row["vx_est"].get<double>();
     auto vy = row["vy_est"].get<double>();
-    if (!objects[id])objects[id] = std::make_shared<cpm_scenario::ExtendedObject>(id, Eigen::Vector2d(0.75, 0.75), cpm_scenario::ExtendedObjectType::PEDESTRIAN);
+    if (!objects[id])objects[id] = std::make_shared<cpm_scenario::ExtendedObject>(id,
+                                                                                  Eigen::Vector2d(0.75, 0.75),
+                                                                                  cpm_scenario::ExtendedObjectType::PEDESTRIAN);
     cpm_scenario::ExtendedObjectPtr object = objects[id];
     auto state = std::make_shared<cpm_scenario::ObjectState>();
     state->SetPosition({x, y});
@@ -55,7 +57,7 @@ void DutScenario::ParsePedestrianFile() {
     if (frame > max_frame) max_frame = frame;
   }
   // Push to class storage and fill orientation
-  for (const auto& element : objects) {
+  for (const auto &element : objects) {
     this->InterpolateOrientation(element.second);
     this->AddObject(element.second);
   }
@@ -69,7 +71,7 @@ void DutScenario::ParseVehicleFile() {
   long max_frame = 0;
   csv::CSVReader csv_reader(this->vehicle_trajectory_file_path_);
   std::map<long, cpm_scenario::ExtendedObjectPtr> objects;
-  for (csv::CSVRow &row: csv_reader) {
+  for (csv::CSVRow &row : csv_reader) {
     auto id = row["id"].get<long>();
     auto frame = row["frame"].get<long>();
     long timestamp = static_cast<long>((FRAMES_PER_SECOND / frame) * 1000000000.0);
@@ -77,7 +79,9 @@ void DutScenario::ParseVehicleFile() {
     auto y = row["y_est"].get<double>();
     auto psi = row["psi_est"].get<double>();
     auto speed = row["vel_est"].get<double>();
-    if (!objects[id])objects[id] = std::make_shared<cpm_scenario::ExtendedObject>(id, Eigen::Vector2d(4.0, 2.0), cpm_scenario::ExtendedObjectType::CAR);
+    if (!objects[id])objects[id] = std::make_shared<cpm_scenario::ExtendedObject>(id,
+                                                                                  Eigen::Vector2d(4.0, 2.0),
+                                                                                  cpm_scenario::ExtendedObjectType::CAR);
     cpm_scenario::ExtendedObjectPtr object = objects[id];
     auto state = std::make_shared<cpm_scenario::ObjectState>();
     state->SetPosition({x, y});
@@ -92,7 +96,7 @@ void DutScenario::ParseVehicleFile() {
     if (frame > max_frame) max_frame = frame;
   }
   // Push to class storage
-  for (const auto& element : objects) {
+  for (const auto &element : objects) {
     this->AddObject(element.second);
   }
 

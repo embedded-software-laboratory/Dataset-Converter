@@ -17,8 +17,8 @@ class LaneletVisualisation: public QObject
 Q_OBJECT
 private:
     // Widgets
-    QGraphicsView * const m_canvas = nullptr; ///< Canvas to render on
-    QGraphicsScene * const m_scene = nullptr; ///< Scene where all object live in
+    QGraphicsView *const m_canvas = nullptr; ///< Canvas to render on
+    QGraphicsScene *const m_scene = nullptr; ///< Scene where all object live in
 
     // Dynamic scene elements all elements in this list are visualised
     QList<NodeItem *> m_nodes; ///< All rendered nodes

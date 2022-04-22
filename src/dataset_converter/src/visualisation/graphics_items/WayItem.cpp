@@ -82,7 +82,7 @@ void WayItem::removeNode(NodeItem *item)
 
     int counter = -1;
     int index = -1;
-    for (auto element: this->m_nodes) {
+    for (auto element : this->m_nodes) {
         counter++;
         if (item == element) {
             index = counter;
@@ -105,7 +105,7 @@ void WayItem::nodeUpdated(NodeItem *item)
     QPainterPath path = this->path();
     // Prevent line from 0, 0
     int counter = -1;
-    for (auto element: this->m_nodes) {
+    for (auto element : this->m_nodes) {
         counter++;
         if (item != element) continue;
         path.setElementPositionAt(counter, item->x(), item->y());
@@ -119,7 +119,7 @@ QVariant WayItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVa
 {
     if (change == ItemPositionChange && scene()) {
         auto shift = value.toPointF() - this->m_system_position;
-        for (auto child: this->m_nodes) {
+        for (auto child : this->m_nodes) {
             child->parentPositionShifted(shift);
         }
         this->m_system_position = value.toPointF();
@@ -129,7 +129,7 @@ QVariant WayItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVa
 }
 void WayItem::updateLanelets()
 {
-    for (auto parent: m_lanelets) {
+    for (auto parent : m_lanelets) {
         parent->updateElement();
     }
 }
@@ -241,7 +241,7 @@ void WayItem::removeFromLanelet(LaneletItem *parent)
 {
     int index = -1;
     int counter = -1;
-    for (auto element: this->m_lanelets) {
+    for (auto element : this->m_lanelets) {
         counter++;
         if (element != parent) continue;
         index = counter;

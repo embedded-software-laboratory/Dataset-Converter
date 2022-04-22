@@ -8,9 +8,9 @@
 
 #include "dataset_converter_lib/DatasetParser.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
- class DutParser : public DatasetParser {
+class DutParser : public DatasetParser {
  public:
   DutParser();
 };

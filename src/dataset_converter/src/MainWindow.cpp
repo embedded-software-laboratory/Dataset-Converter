@@ -1,7 +1,6 @@
 #include "MainWindow.h"
 #include "ui_mainwindow.h"
 
-#include <QMessageBox>
 #include <QDebug>
 #include <QProgressDialog>
 #include <QDoubleSpinBox>
@@ -10,6 +9,8 @@
 #include <QGraphicsBlurEffect>
 
 #include "worker/DatasetParser.h"
+#include "dialog/AboutDialog.h"
+#include "dialog/ErrorDialog.h"
 
 void MainWindow::restoreWindowStates()
 {
@@ -255,11 +256,14 @@ void MainWindow::closeEvent(QCloseEvent * /*event*/)
 
 void MainWindow::onAboutDialogRequested()
 {
-    QMessageBox::about(this, "About",
-                       "<html>" + QApplication::applicationName() + "<br>"
-                           + "Version: " + QApplication::applicationVersion() + "<br>" + "<br>"
-                           + "Copyright © 2021 " + QApplication::organizationName()
-                           + "</html>");
+    QString text =
+        R"(<html><head/><body><p align="center"><span style=" font-size:18pt; font-weight:600;">Dataset Converter</span></p><p align="center">)"
+            + QApplication::applicationName() + "<br>"
+            + "Version: " + QApplication::applicationVersion() + "<br>" + "<br>"
+            + "Copyright © 2022 " + QApplication::organizationName()
+            + "</p></body></html>";
+    AboutDialog aboutDialog(this, text);
+    aboutDialog.exec();
 }
 
 void MainWindow::onLoadDatasetDialogRequested()
@@ -274,11 +278,8 @@ void MainWindow::onLoadDatasetDialogRequested()
 
     // Check if directory is valid and exists
     if (!datasetRootDirectoryPath.exists()) {
-        QMessageBox messageBox(QMessageBox::Icon::Critical, "error", "An error occurred",
-                               QMessageBox::StandardButton::Ok, this,
-                               Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-        messageBox.setWindowModality(Qt::WindowModal);
-        messageBox.setInformativeText("Dataset root directory not found.");
+        ErrorDialog
+            messageBox(this, "Dataset root directory not found. Make sure the selected directory is a valid path.");
         messageBox.exec();
         return;
     }
@@ -303,11 +304,8 @@ void MainWindow::onLoadScenarioDialogRequested()
 
     // Check if directory is valid and exists
     if (!datasetRootDirectoryPath.exists()) {
-        QMessageBox messageBox(QMessageBox::Icon::Critical, "error", "An error occurred",
-                               QMessageBox::StandardButton::Ok, this,
-                               Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-        messageBox.setWindowModality(Qt::WindowModal);
-        messageBox.setInformativeText("Scenario root directory not found.");
+        ErrorDialog
+            messageBox(this, "Scenario root directory not found. Make sure the selected directory is a valid path.");
         messageBox.exec();
         return;
     }
@@ -357,11 +355,7 @@ void MainWindow::onLoadLaneletMapDialogRequested()
 
     // Check if file is valid and is not a directory
     if (!file.exists() || file.isDir()) {
-        QMessageBox messageBox(QMessageBox::Icon::Critical, "error", "An error occurred",
-                               QMessageBox::StandardButton::Ok, this,
-                               Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-        messageBox.setWindowModality(Qt::WindowModal);
-        messageBox.setInformativeText("Lanelet map file not found.");
+        ErrorDialog messageBox(this, "Lanelet map file not found. Make sure the selected file is a valid path.");
         messageBox.exec();
         return;
     }
@@ -429,11 +423,7 @@ void MainWindow::onSaveScenarioDialogRequested()
     QFileInfo file(filePath);
     // Check if file is valid and is not a directory
     if (!file.exists() || !file.isDir()) {
-        QMessageBox messageBox(QMessageBox::Icon::Critical, "error", "An error occurred",
-                               QMessageBox::StandardButton::Ok, this,
-                               Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-        messageBox.setWindowModality(Qt::WindowModal);
-        messageBox.setInformativeText("Export directory not found.");
+        ErrorDialog messageBox(this, "Export directory not found. Make sure the selected directory is a valid path.");
         messageBox.exec();
         return;
     }
@@ -607,7 +597,7 @@ void MainWindow::onDatasetLoaded()
     if (listScenarioNames.first() == "No Scenarios loaded") {
         listScenarioNames.clear();
     }
-    for (const auto &scenario: this->m_datasetParser->loadedScenarios()) {
+    for (const auto &scenario : this->m_datasetParser->loadedScenarios()) {
         this->m_scenarios.push_back(scenario);
         listScenarioNames.push_back(QString::fromStdString(scenario->GetName()));
     }
@@ -645,12 +635,8 @@ void MainWindow::onErrorDuringLoading(const QString &message)
 {
     // Error occurred
     this->m_progressDialog->close();
-    QMessageBox messageBox(QMessageBox::Icon::Critical, "error", "An error occurred",
-                           QMessageBox::StandardButton::Ok, this,
-                           Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-    messageBox.setWindowModality(Qt::WindowModal);
-    messageBox.setInformativeText("<html><b>Process aborted with message:</b><br>" + message
-                                      + "</html>");
+
+    ErrorDialog messageBox(this, "<html><b>Process aborted with message:</b><br>" + message + "</html>");
     messageBox.exec();
 }
 void MainWindow::onSelectedScenarioChanged(const QItemSelection &selection)

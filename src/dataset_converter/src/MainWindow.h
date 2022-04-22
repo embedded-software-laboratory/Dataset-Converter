@@ -49,7 +49,7 @@ private:
     QStringListModel *m_scenarioListModel; ///< Accessible scenarios
 
     GraphicsViewZoomHandler *m_graphicsViewZoomHandler; ///< Handler that manages zooming
-    GraphicsViewClickHandler *m_graphicsViewClickHandler; ///< Hander that manages all interaction with the canvas
+    GraphicsViewClickHandler *m_graphicsViewClickHandler; ///< Handler that manages all interaction with the canvas
 
     QTimer *m_playbackTimer; ///< Timer for playback
 
@@ -88,7 +88,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
     /**
-     * Closes the second thread.
+     * Closes the worker thread.
      */
     ~MainWindow() override;
 
@@ -101,39 +101,98 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
+    /**
+     * Open the about dialog if requested by the user.
+     */
     void onAboutDialogRequested();
+    /**
+     * Open the load dataset dialog if requested by the user.
+     */
     void onLoadDatasetDialogRequested();
+    /**
+     * Open the load scenario dialog if requested by the user.
+     */
     void onLoadScenarioDialogRequested();
+    /**
+     * Open the load lanelet map dialog if requested by the user.
+     */
     void onLoadLaneletMapDialogRequested();
-    void onSaveLaneletMapDialogRequested();
-    void onSaveScenarioDialogRequested();
-    void onExportLaneletMapDialogRequested();
-    void onSaveTransformationDialogRequested();
+    /**
+     * Open the load transformation dialog if requested by the user.
+     */
     void onLoadTransformationDialogRequested();
 
+    /**
+     * Open the save lanelet map dialog if requested by the user.
+     */
+    void onSaveLaneletMapDialogRequested();
+    /**
+     * Open the save scenario map dialog if requested by the user.
+     */
+    void onSaveScenarioDialogRequested();
+    /**
+     * Open the export lanelet map dialog if requested by the user.
+     */
+    void onExportLaneletMapDialogRequested();
+    /**
+     * Open the save transformation dialog if requested by the user.
+     */
+    void onSaveTransformationDialogRequested();
+
+    /**
+     * Triggered if the user clicks the skip frame forward button.
+     */
     void onSkipFramesForward();
+    /**
+     * Triggered if the user clicks the skip frame backward button.
+     */
     void onSkipFramesBackward();
+    /**
+     * Triggered by the playback timer every time the next frame should be displayed.
+     */
     void onPlaybackTimer();
+    /**
+     * Triggered if the user clicks the play/pause button.
+     */
     void onStartStopPlayback();
 
+    /**
+     * Triggered if the user changes the current selected edit tool.
+     */
     void onToolSelectionChanged(int id);
 
+    /**
+     * Triggered if the user changes the current selected scenario.
+     */
+    void onSelectedScenarioChanged(const QItemSelection &selection);
+
+    /*
+     * Slot triggered if the worker thread has finished a task.
+     */
     void onDatasetLoaded();
     void onLaneletMapLoaded();
     void onScenarioLoaded();
     void onScenarioStored();
 
+    /*
+     * Slots to monitor the work done by the worker thread.
+     */
     void onProgressDuringLoading(int current, int max);
     void onErrorDuringLoading(const QString &message);
 
-    void onSelectedScenarioChanged(const QItemSelection &selection);
-
 signals:
+    /*
+     * Signals to trigger a task for the worker thread.
+     */
     void requestDataset(QString datasetName, QString datasetRootDirectoryPath);
     void requestScenario(QString datasetName, QString datasetRootDirectoryPath);
     void requestLaneletMap(QString laneletMapFilePath, qreal scaleFactor);
     void storeLaneletMap(QString laneletMapFilePath, qreal scaleFactor);
-    void storeScenario(QString name, QString rootDirectoryPath, size_t fromFrame, size_t toFrame, bool exportFullTrajectories);
+    void storeScenario(QString name,
+                       QString rootDirectoryPath,
+                       size_t fromFrame,
+                       size_t toFrame,
+                       bool exportFullTrajectories);
     void exportLaneletMap(QString laneletMapFilePath, QGraphicsScene *scene);
 
 };

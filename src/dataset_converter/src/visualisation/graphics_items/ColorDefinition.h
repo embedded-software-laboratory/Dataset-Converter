@@ -5,7 +5,8 @@
 /**
  * RWTH color definitions from the cooperation design.
  */
-namespace ColorDefinitions {
+namespace ColorDefinitions
+{
 constexpr static const QColor BLUE = QColor(0, 84, 159); // Blue
 constexpr static const QColor LIGHT_BLUE = QColor(142, 186, 229); // Cyan
 constexpr static const QColor LILA = QColor(122, 111, 172); // Lila

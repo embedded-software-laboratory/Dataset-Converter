@@ -32,11 +32,11 @@ ScenarioVisualization::ScenarioVisualization(QGraphicsView *canvas, QObject *par
 
     // Add pattern to border
     auto patternRectangle = this->m_scene->addRect(
-        -10, -10,  this->m_labWidth + 20,  this->m_labHeight + 20, Qt::NoPen, brushHighlightColorPattern);
+        -10, -10, this->m_labWidth + 20, this->m_labHeight + 20, Qt::NoPen, brushHighlightColorPattern);
     patternRectangle->setZValue(0);
 
     // Add black rectangle to make pattern only appear at border
-    auto blackRectangle = this->m_scene->addRect(0, 0,  this->m_labWidth,  this->m_labHeight, Qt::NoPen,
+    auto blackRectangle = this->m_scene->addRect(0, 0, this->m_labWidth, this->m_labHeight, Qt::NoPen,
                                                  brushWindowColor);
     blackRectangle->setZValue(1);
 
@@ -63,13 +63,13 @@ ScenarioVisualization::ScenarioVisualization(QGraphicsView *canvas, QObject *par
     // Draw line around clipping rectangle with 10 m space
     auto scenarioClippingElement = this->m_scene->addRect(
         10 * this->m_scaleFactor, 10 * this->m_scaleFactor,
-        this->m_labWidth - 20 * this->m_scaleFactor,  this->m_labHeight - 20 * this->m_scaleFactor,
+        this->m_labWidth - 20 * this->m_scaleFactor, this->m_labHeight - 20 * this->m_scaleFactor,
         penHighlightColor, Qt::NoBrush);
     scenarioClippingElement->setZValue(10);
     scenarioClippingElement->setFlag(QGraphicsItem::ItemClipsChildrenToShape);
 
     // Add container that will contain all dynamic elements
-    this->m_scenarioForegroundItem = this->m_scene->addRect(0, 0,  this->m_labWidth,  this->m_labHeight);
+    this->m_scenarioForegroundItem = this->m_scene->addRect(0, 0, this->m_labWidth, this->m_labHeight);
     this->m_scenarioForegroundItem->setZValue(9);
     this->m_scenarioForegroundItem->setParentItem(scenarioClippingElement);
 
@@ -140,7 +140,7 @@ void ScenarioVisualization::updateScenarioMetaData(cpm_scenario::ScenarioPtr sce
 void ScenarioVisualization::updateDynamicObjects(qint64 frame)
 {
     this->m_frameItem->setText("Frame: " + QString::number(frame));
-    for (const auto &object: this->m_scenario->GetObjects()) {
+    for (const auto &object : this->m_scenario->GetObjects()) {
         // Object is not in the scene but was created -> clean up graphic element
         if (!object->IsInScene(frame)
             && this->m_idToDynamicElementMap.contains(object->GetId())) {
@@ -170,7 +170,7 @@ void ScenarioVisualization::updateDynamicObjects(qint64 frame)
 }
 void ScenarioVisualization::clearDynamicObjects()
 {
-    for (auto child: this->m_idToDynamicElementMap) {
+    for (auto child : this->m_idToDynamicElementMap) {
         this->m_scene->removeItem(child);
     }
     this->m_idToDynamicElementMap.clear();
@@ -199,7 +199,7 @@ void ScenarioVisualization::setScenario(cpm_scenario::ScenarioPtr scenario)
 }
 qint64 ScenarioVisualization::frame() const
 {
-    return  this->m_frame;
+    return this->m_frame;
 }
 void ScenarioVisualization::setFrame(qint64 frame)
 {

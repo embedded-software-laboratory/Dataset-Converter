@@ -21,14 +21,14 @@ class KoPerScenario : public CpmScenario {
                 std::string first_recording_part_file_path,
                 std::string second_recording_part_file_path);
 
-  void MakePathsAbsolute(const std::string& dataset_root_directory);
+  void MakePathsAbsolute(const std::string &dataset_root_directory);
 
   void ParseLabelFile();
 
  public:
-  explicit KoPerScenario(const std::string& name);
+  explicit KoPerScenario(const std::string &name);
 
-  void Parse(const std::string& dataset_root_directory) override;
+  void Parse(const std::string &dataset_root_directory) override;
 
 };
 

@@ -19,8 +19,8 @@ void OsxTitleBarHandler::HideTitleBar(unsigned long long windowId)
     // Increases the distance between buttons and border by injecting a empty toolbar
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"Toolbar"];
     toolbar.showsBaselineSeparator = false;
-    toolbar.displayMode = NSToolbarDisplayMode ::NSToolbarDisplayModeIconOnly;
-    [nativeWindow setToolbar: toolbar];
+    toolbar.displayMode = NSToolbarDisplayMode::NSToolbarDisplayModeIconOnly;
+    [nativeWindow setToolbar:toolbar];
     [toolbar release];
 
     //NSVisualEffectView *blurView = [[NSVisualEffectView alloc] initWithFrame:NSMakeRect(0,0,800,600)];

@@ -37,29 +37,39 @@ QMenu {
     background: palette(base);
     padding: 9px;
     border-radius: 6px;
-    border: none;
+    border: 1px solid palette(alternate-base);
 }
 
 QMenu::item {
+    border-radius: 6px;
+    padding: 4px;
+    border: none;
     color: palette(text);
     background-color: transparent;
 }
 
 QMenu::item:hover {
     color: palette(highlight);
+    background-color: transparent;
+}
+
+QMenu::item:selected {
+    color: palette(highlight);
+    background-color: transparent;
+}
+
+QMenu::item:checked {
+    color: palette(text);
+    background-color: palette(highlight);
+}
+
+QMenu::item:checked:selected {
+    color: palette(base);
+    background-color: palette(highlight);
 }
 
 QMenu::item:disabled {
     color: palette(light);
-}
-
-QMenu::item:selected {
-    border: none;
-    background: palette(highlight);
-}
-
-QMenu::item:checked {
-    background-color: palette(highlight);
 }
 
 QMenu::indicator {

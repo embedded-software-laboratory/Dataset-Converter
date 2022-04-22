@@ -27,7 +27,7 @@ GraphicsViewClickHandler::GraphicsViewClickHandler(QGraphicsView *view)
 template<typename PointerType, typename ListType>
 PointerType GetFirstItemInList(QList<ListType> list)
 {
-    for (auto item: list) {
+    for (auto item : list) {
         // Cast
         auto *itemOfCorrectType = dynamic_cast<PointerType>(item);
         // Check if valid

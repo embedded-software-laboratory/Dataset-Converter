@@ -10,9 +10,9 @@
 /**
  * Worker class that load data sets using the dataset_converter_lib.
  */
-class DatasetParser : public QObject
+class DatasetParser: public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 private:
     dataset_converter_lib::DatasetParser *m_datasetParser = nullptr; ///< Data set specific parser from the lib
     cpm_scenario::ScenarioPtrs m_scenarios; ///< Loaded scenarios

@@ -1,7 +1,7 @@
 #include "dataset_converter_lib/DUT/DutParser.h"
 #include "dataset_converter_lib/DUT/DutScenario.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 DutParser::DutParser() {
   this->scenarios_.push_back(std::make_shared<DutScenario>("intersection_01"));

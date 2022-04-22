@@ -34,7 +34,7 @@ void KoPerScenario::ParseLabelFile() {
 
   std::cout << "Field names:" << std::endl;
   std::cout << "\t";
-  for(const auto& field_name : data->fieldNames()->fieldNames()) {
+  for (const auto &field_name : data->fieldNames()->fieldNames()) {
     std::cout << field_name << " ";
   }
   std::cout << std::endl;

@@ -6,23 +6,27 @@
 LoadScenarioDialog::LoadScenarioDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::LoadScenarioDialog)
 {
+    // Load .ui file
     this->ui->setupUi(this);
 
-    for (auto &item : this->ui->btn_dialog->buttons()){
-      item->setIcon(QIcon());
+    // Remove icons from the buttons
+    for (auto &item : this->ui->btn_dialog->buttons()) {
+        item->setIcon(QIcon());
     }
 
+    // Setup dialog button bar function
     connect(this->ui->btn_dialog, &QDialogButtonBox::rejected, this, &LoadScenarioDialog::reject);
+    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadScenarioDialog::accept);
 
     // Copy values from interface than trigger accept
     connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadScenarioDialog::onAcceptButtonPressed);
-    connect(this->ui->btn_dialog, &QDialogButtonBox::accepted, this, &LoadScenarioDialog::accept);
 
     // Open the systems file browser
     connect(this->ui->btn_browse, &QToolButton::pressed, this, &LoadScenarioDialog::onBrowseButtonPressed);
 }
 void LoadScenarioDialog::onBrowseButtonPressed()
 {
+    // Assume home directory is fine
     QDir suggestedDir = QDir::homePath();
 
     // If directory is valid and exists use this value as the suggested directory
@@ -44,13 +48,16 @@ void LoadScenarioDialog::onBrowseButtonPressed()
 
 void LoadScenarioDialog::onAcceptButtonPressed()
 {
+    // Copy data from the ui to the data model
     this->m_dataset_name = this->ui->edit_name->text();
     this->m_dataset_root_directory.setPath(this->ui->edit_browse->text());
 }
+
 const QDir &LoadScenarioDialog::scenarioRootDirectory() const
 {
     return m_dataset_root_directory;
 }
+
 const QString &LoadScenarioDialog::scenarioName() const
 {
     return m_dataset_name;

@@ -8,7 +8,7 @@
 
 #include "dataset_converter_lib/DatasetParser.h"
 
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 class RounDParser : public DatasetParser {
  public:

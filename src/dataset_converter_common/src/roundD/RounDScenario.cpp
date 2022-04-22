@@ -4,13 +4,13 @@
 
 #include <CSV/csv.hpp>
 #include <utility>
-namespace dataset_converter_lib {
+namespace dataset_converter_common {
 
 RounDScenario::RounDScenario(std::string name,
-                         std::string recording_meta_file_path,
-                         std::string tracks_file_path,
-                         std::string tracks_meta_file_path,
-                         std::string background_file_path)
+                             std::string recording_meta_file_path,
+                             std::string tracks_file_path,
+                             std::string tracks_meta_file_path,
+                             std::string background_file_path)
     : DatasetScenario(std::move(name)),
       recording_meta_file_path_(std::move(recording_meta_file_path)),
       tracks_file_path_(std::move(tracks_file_path)),
@@ -26,9 +26,9 @@ void RounDScenario::MakePathsAbsolute(const std::string &dataset_root_directory)
 
 void RounDScenario::ParserRecordingMetaFile() {
   csv::CSVReader csv_reader(this->recording_meta_file_path_);
-  for (csv::CSVRow &row: csv_reader) {
+  for (csv::CSVRow &row : csv_reader) {
     auto ortho_px_to_meter = row["orthoPxToMeter"].get<double>() * 10.0;
-    this->SetBackgroundImageScaleFactor(1.0/ortho_px_to_meter);
+    this->SetBackgroundImageScaleFactor(1.0 / ortho_px_to_meter);
     this->FRAMES_PER_SECOND = row["frameRate"].get<double>();
   }
 }
@@ -36,7 +36,7 @@ void RounDScenario::ParserRecordingMetaFile() {
 void RounDScenario::ParserTrackMetaFile() {
   csv::CSVReader csv_reader(this->tracks_meta_file_path_);
 
-  for (csv::CSVRow &row: csv_reader) {
+  for (csv::CSVRow &row : csv_reader) {
     auto track_id = row["trackId"].get<long>();
     auto width = row["width"].get<double>();
     auto length = row["length"].get<double>();
@@ -60,23 +60,27 @@ void RounDScenario::ParserTrackMetaFile() {
       width = 0.75;
     }
 
-
-    if (!objects_map_[track_id]) objects_map_[track_id] = std::make_shared<cpm_scenario::ExtendedObject>(track_id, Eigen::Vector2d(length, width), type);
+    if (!objects_map_[track_id]) objects_map_[track_id] = std::make_shared<cpm_scenario::ExtendedObject>(track_id,
+                                                                                                         Eigen::Vector2d(
+                                                                                                             length,
+                                                                                                             width),
+                                                                                                         type);
   }
 
   // Push to class storage and fill orientation
-  for(auto element : objects_map_){
+  for (auto element : objects_map_) {
     this->AddObject(element.second);
   }
 
-  std::cout << "Preprocessed " << objects_map_.size() << " objects from rounD scenario " << this->GetName() << "." << std::endl;
+  std::cout << "Preprocessed " << objects_map_.size() << " objects from rounD scenario " << this->GetName() << "."
+            << std::endl;
 }
 
 void RounDScenario::ParserTrackFile() {
   long max_frame = 0;
   csv::CSVReader csv_reader(this->tracks_file_path_);
 
-  for (csv::CSVRow &row: csv_reader) {
+  for (csv::CSVRow &row : csv_reader) {
     auto track_id = row["trackId"].get<long>();
     auto frame = row["frame"].get<long>();
     long timestamp = static_cast<long>((frame / FRAMES_PER_SECOND) * 1e9);
@@ -93,21 +97,22 @@ void RounDScenario::ParserTrackFile() {
     state->SetFrame(frame);
     state->SetOrientation(-orientation * M_PI / 180.0);
     object->AddState(state);
-    if(frame > max_frame) max_frame = frame;
+    if (frame > max_frame) max_frame = frame;
   }
 
   // Update number of frames
-  if(max_frame > this->GetNumberOfFrames()) this->SetNumberOfFrames(max_frame);
+  if (max_frame > this->GetNumberOfFrames()) this->SetNumberOfFrames(max_frame);
 
-  std::cout << "Parsed " << objects_map_.size() << " objects from rounD scenario " << this->GetName() << "." << std::endl;
+  std::cout << "Parsed " << objects_map_.size() << " objects from rounD scenario " << this->GetName() << "."
+            << std::endl;
 }
 
 RounDScenario::RounDScenario(const std::string &name) :
     RounDScenario(name,
-                "/data/" + name + "_recordingMeta.csv",
-                "/data/" + name + "_tracks.csv",
-                "/data/" + name + "_tracksMeta.csv",
-                "/data/" + name + "_background.png") {}
+                  "/data/" + name + "_recordingMeta.csv",
+                  "/data/" + name + "_tracks.csv",
+                  "/data/" + name + "_tracksMeta.csv",
+                  "/data/" + name + "_background.png") {}
 
 void RounDScenario::Parse(const std::string &dataset_root_directory) {
   this->MakePathsAbsolute(dataset_root_directory);

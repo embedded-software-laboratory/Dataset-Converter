@@ -7,16 +7,17 @@
 #include <QFileDialog>
 
 // Reference to the class defined by the .ui file
-namespace Ui {
+namespace Ui
+{
 class SaveScenarioDialog;
 }
 
 /**
  * Dialog that will open if the user wants to load a dataset.
  */
-class SaveScenarioDialog : public QDialog
+class SaveScenarioDialog: public QDialog
 {
-    Q_OBJECT
+Q_OBJECT
 private:
     Ui::SaveScenarioDialog *ui; ///< Instance of the .ui file class.
 
@@ -81,7 +82,7 @@ public slots:
      * @param name Suggested name.
      * @param targetDirectory Suggested directory.
      */
-    void suggestInput(const QString& name, const QDir& targetDirectory);
+    void suggestInput(const QString &name, const QDir &targetDirectory);
 
     /**
      * Will limit the frame that can be selected to the source scenario length.

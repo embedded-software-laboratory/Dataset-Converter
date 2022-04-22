@@ -16,7 +16,7 @@ class GraphicsViewZoomHandler: public QObject
 {
 Q_OBJECT
 private:
-    QGraphicsView * const m_canvas; ///< Graphics view that should be zoomed.
+    QGraphicsView *const m_canvas; ///< Graphics view that should be zoomed.
 
     QPointF m_target_scene_position; ///< Position of the scene that should be zoomed.
 

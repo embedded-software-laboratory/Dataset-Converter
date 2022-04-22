@@ -5,7 +5,8 @@
 #include <dataset_converter_lib/inD/InDParser.h>
 #include <dataset_converter_lib/rounD/RounDParser.h>
 
-DatasetParser::DatasetParser(QObject *parent) : QObject(parent)
+DatasetParser::DatasetParser(QObject *parent)
+    : QObject(parent)
 {}
 cpm_scenario::ScenarioPtrs DatasetParser::loadedScenarios()
 {
@@ -24,16 +25,18 @@ void DatasetParser::initialise()
     delete this->m_datasetParser;
     this->m_scenarios.clear();
 
-    QStringList supportedDatasets = { "DUT", "Ko-Per", "inD", "rounD"};
+    QStringList supportedDatasets = {"DUT", "Ko-Per", "inD", "rounD"};
     if (!supportedDatasets.contains(this->m_datasetName)) {
         emit error("Dataset is not supported.");
         return;
     }
     if (this->m_datasetName == "DUT") {
         this->m_datasetParser = new dataset_converter_lib::DutParser;
-    } else if (this->m_datasetName == "inD") {
+    }
+    else if (this->m_datasetName == "inD") {
         this->m_datasetParser = new dataset_converter_lib::InDParser;
-    } else if (this->m_datasetName == "rounD") {
+    }
+    else if (this->m_datasetName == "rounD") {
         this->m_datasetParser = new dataset_converter_lib::RounDParser;
     }
 
@@ -64,11 +67,12 @@ void DatasetParser::run()
                 return;
             }
         }
-        for (const auto &scenario: this->m_datasetParser->GetScenarios()) {
+        for (const auto &scenario : this->m_datasetParser->GetScenarios()) {
             this->m_scenarios.push_back(scenario);
         }
         emit loaded();
-    } catch (std::exception e){
+    }
+    catch (std::exception e) {
         emit error("Parsing of the data set failed.");
     }
 }
