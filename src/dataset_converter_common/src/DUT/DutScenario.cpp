@@ -1,4 +1,4 @@
-#include "dataset_converter_lib/DUT/DutScenario.h"
+#include "dataset_converter_common/DUT/DutScenario.h"
 
 #include <map>
 

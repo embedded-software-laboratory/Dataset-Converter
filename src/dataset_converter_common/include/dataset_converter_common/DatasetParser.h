@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "dataset_converter_lib/DatasetScenario.h"
+#include "dataset_converter_common/DatasetScenario.h"
 
 namespace dataset_converter_common {
 

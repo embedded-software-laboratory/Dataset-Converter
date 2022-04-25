@@ -1,5 +1,5 @@
-#include "dataset_converter_lib/DUT/DutParser.h"
-#include "dataset_converter_lib/DUT/DutScenario.h"
+#include "dataset_converter_common/DUT/DutParser.h"
+#include "dataset_converter_common/DUT/DutScenario.h"
 
 namespace dataset_converter_common {
 

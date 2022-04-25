@@ -6,7 +6,7 @@
 #ifndef DATASET_CONVERTER_LIB_IND_PARSER_H_
 #define DATASET_CONVERTER_LIB_IND_PARSER_H_
 
-#include "dataset_converter_lib/DatasetParser.h"
+#include "dataset_converter_common/DatasetParser.h"
 
 namespace dataset_converter_common {
 

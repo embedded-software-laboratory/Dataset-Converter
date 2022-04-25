@@ -7,7 +7,7 @@
 #define DATASET_CONVERTER_LIB_ROUND_SCENARIO_H_
 
 #include <map>
-#include "dataset_converter_lib/DatasetScenario.h"
+#include "dataset_converter_common/DatasetScenario.h"
 
 namespace dataset_converter_common {
 

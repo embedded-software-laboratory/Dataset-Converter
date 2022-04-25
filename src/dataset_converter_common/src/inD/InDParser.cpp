@@ -1,5 +1,5 @@
-#include "dataset_converter_lib/inD/InDParser.h"
-#include "dataset_converter_lib/inD/InDScenario.h"
+#include "dataset_converter_common/inD/InDParser.h"
+#include "dataset_converter_common/inD/InDScenario.h"
 
 namespace dataset_converter_common {
 

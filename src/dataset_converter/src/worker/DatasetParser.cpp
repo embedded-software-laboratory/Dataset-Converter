@@ -1,9 +1,9 @@
 #include "DatasetParser.h"
 #include <QDir>
 
-#include <dataset_converter_lib/DUT/DutParser.h>
-#include <dataset_converter_lib/inD/InDParser.h>
-#include <dataset_converter_lib/rounD/RounDParser.h>
+#include <dataset_converter_common/DUT/DutParser.h>
+#include <dataset_converter_common/inD/InDParser.h>
+#include <dataset_converter_common/rounD/RounDParser.h>
 
 DatasetParser::DatasetParser(QObject *parent)
     : QObject(parent)
@@ -31,13 +31,13 @@ void DatasetParser::initialise()
         return;
     }
     if (this->m_datasetName == "DUT") {
-        this->m_datasetParser = new dataset_converter_lib::DutParser;
+        this->m_datasetParser = new dataset_converter_common::DutParser;
     }
     else if (this->m_datasetName == "inD") {
-        this->m_datasetParser = new dataset_converter_lib::InDParser;
+        this->m_datasetParser = new dataset_converter_common::InDParser;
     }
     else if (this->m_datasetName == "rounD") {
-        this->m_datasetParser = new dataset_converter_lib::RounDParser;
+        this->m_datasetParser = new dataset_converter_common::RounDParser;
     }
 
     QDir datasetRootDirectory(this->m_datasetRootDirectory);

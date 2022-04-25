@@ -30,8 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
-    setAttribute(Qt::WA_TranslucentBackground, true);
-    setAttribute(Qt::WA_NoSystemBackground, false);
+    //setAttribute(Qt::WA_TranslucentBackground, true);
+    //setAttribute(Qt::WA_NoSystemBackground, false);
 
     // Setup progress dialog
     this->m_progressDialog = new QProgressDialog(this);

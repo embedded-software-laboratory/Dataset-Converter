@@ -5,16 +5,16 @@
 
 #include <QObject>
 
-#include <dataset_converter_lib/DatasetParser.h>
+#include <dataset_converter_common/DatasetParser.h>
 
 /**
- * Worker class that load data sets using the dataset_converter_lib.
+ * Worker class that load data sets using the dataset_converter_common.
  */
 class DatasetParser: public QObject
 {
 Q_OBJECT
 private:
-    dataset_converter_lib::DatasetParser *m_datasetParser = nullptr; ///< Data set specific parser from the lib
+    dataset_converter_common::DatasetParser *m_datasetParser = nullptr; ///< Data set specific parser from the lib
     cpm_scenario::ScenarioPtrs m_scenarios; ///< Loaded scenarios
     QString m_datasetName; ///< Name of data set
     QString m_datasetRootDirectory; ///< Root directory to search in

@@ -6,7 +6,7 @@
 #ifndef DATASET_CONVERTER_LIB_DUT_SCENARIO_H_
 #define DATASET_CONVERTER_LIB_DUT_SCENARIO_H_
 
-#include "dataset_converter_lib/DatasetScenario.h"
+#include "dataset_converter_common/DatasetScenario.h"
 
 namespace dataset_converter_common {
 
