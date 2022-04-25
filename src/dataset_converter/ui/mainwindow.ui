@@ -55,8 +55,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>280</width>
-         <height>795</height>
+         <width>266</width>
+         <height>759</height>
         </rect>
        </property>
        <property name="minimumSize">
@@ -865,11 +865,11 @@
     <addaction name="action_delete_lanelet"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuTool"/>
-   <addaction name="menu_help"/>
    <addaction name="menu_node"/>
    <addaction name="menu_way"/>
    <addaction name="menu_lanelet"/>
+   <addaction name="menuTool"/>
+   <addaction name="menu_help"/>
   </widget>
   <action name="action_load_dataset">
    <property name="icon">

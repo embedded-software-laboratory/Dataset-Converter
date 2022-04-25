@@ -1,11 +1,15 @@
 # CPM Dataset Converter
 
-<img align="right" src="documentation/logo.png" width="128" alt="Logo">
-
 The Datasetconverter is a Qt5 based GUI application with two main functions.
 It allows to convert different datasets into CPM scenarios (a format based on the CommonRoad format) and to create or edit Lanelet2 maps for the CPM Lab.
 The different data sets are converted on the fly into the CPM scenario format and visualised.
 The user can then select a section of a recording to export a scenario. The data sets themselves must be downloaded separately from the various providers.
+
+![Screenshot Ubuntu 22.04](documentation/screenshot-ubuntu.png)
+<div align="center">Dataset Converter in Ubuntu 22.04</div>
+
+![Screenshot Ubuntu 22.04](documentation/screenshot-macos.png)
+<div align="center">Dataset Converter in MacOs <br> Scenario Loaded from the rounD dataset</div>
 
 ## Clone
 
