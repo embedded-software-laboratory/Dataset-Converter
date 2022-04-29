@@ -1,6 +1,6 @@
-[submodule "src/libs/scenario"]
-	path = src/libs/scenario
-	url = git@git.rwth-aachen.de:CPM/Project/Lab/libraries/scenario.git
+[submodule "src/libs/cpm-scenario"]
+	path = src/libs/cpm-scenario
+	url = git@github.com:embedded-software-laboratory/CPM-Scenario.git
 [submodule "src/libs/rosless-lanelet2"]
 	path = src/libs/rosless-lanelet2
-	url = https://github.com/embedded-software-laboratory/Rosless-Lanelet2
+	url = git@github.com:embedded-software-laboratory/Rosless-Lanelet2.git
